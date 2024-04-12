@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: cashflow-buddy-rest-api
+  datasource:
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    url: ${SPRING_DATASOURCE_URL}
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# Server
+server:
+  servlet:
+    context-path: /api
