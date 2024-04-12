@@ -1,4 +1,4 @@
-package com.example.demo;
+package edu.sit.cashflow_buddy_rest_api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
