@@ -7,10 +7,14 @@ import lombok.Data;
  */
 @Data
 public class NewGoogleUserDto {
-    String userId;
-    String googleId;
-    String username;
-    String email;
-    String firstName;
-    String lastName;
+    private String userId;
+    private String googleId;
+    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
+
+    public String getUserId() {
+        return "google:" + googleId;
+    }
 }
