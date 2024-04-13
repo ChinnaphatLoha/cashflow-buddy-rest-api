@@ -1,9 +1,11 @@
 package edu.sit.cashflow_buddy_rest_api.services;
 
 import edu.sit.cashflow_buddy_rest_api.dto.NewGoogleUserDto;
-import edu.sit.cashflow_buddy_rest_api.dto.UserDto;
+import edu.sit.cashflow_buddy_rest_api.dto.UserResponseDto;
+import edu.sit.cashflow_buddy_rest_api.dto.UserUpdateDto;
 import edu.sit.cashflow_buddy_rest_api.entities.User;
 import edu.sit.cashflow_buddy_rest_api.repositories.UserRepository;
+import edu.sit.cashflow_buddy_rest_api.utils.CrudUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,25 +23,28 @@ public class UserService {
     }
 
     // CREATE GOOGLE USER
-    public UserDto createGoogleUser(NewGoogleUserDto userToCreate) {
-        User user = mapper.map(userToCreate, User.class);
-        return mapper.map(userRepository.save(user), UserDto.class);
+    public UserResponseDto createGoogleUser(NewGoogleUserDto userToBeCreated) {
+        User user = mapper.map(userToBeCreated, User.class);
+        return mapper.map(userRepository.save(user), UserResponseDto.class);
     }
 
     // GET PROFILE BY ID
-    public UserDto getProfileById(String userId) {
-        // TODO: Implement getting a user's profile by ID (maybe use Google ID)
-        return null;
+    public UserResponseDto getProfileById(String userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        return mapper.map(user, UserResponseDto.class);
     }
 
     // UPDATE PROFILE
-    public UserDto updateProfile(String userId, UserDto user) {
-        // TODO: Implement updating a user's profile
-        return null;
+    public UserResponseDto updateProfile(String userId, UserUpdateDto updateData) {
+        User user = userRepository.findById(userId).orElseThrow();
+        CrudUtils.copyNonNullProperties(updateData, user);
+        return mapper.map(userRepository.save(user), UserResponseDto.class);
     }
 
     // DELETE PROFILE
-    public void deleteProfile(String userId) {
-        // TODO: Implement deleting a user's profile
+    public void deactivateProfile(String userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setIsAvailable(false);
+        userRepository.save(user);
     }
 }
