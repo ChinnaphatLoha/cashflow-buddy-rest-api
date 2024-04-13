@@ -21,7 +21,6 @@ public class UserController {
 
     @PostMapping("/google")
     public UserDto createGoogleUser(@RequestBody NewGoogleUserDto userToCreate) {
-        System.out.println("userToCreate = " + userToCreate);
         return userService.createGoogleUser(userToCreate);
     }
 }
