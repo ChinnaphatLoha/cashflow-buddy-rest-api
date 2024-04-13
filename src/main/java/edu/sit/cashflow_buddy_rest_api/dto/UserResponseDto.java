@@ -9,7 +9,7 @@ import java.util.Set;
  * DTO for {@link edu.sit.cashflow_buddy_rest_api.entities.User}
  */
 @Data
-public class UserDto {
+public class UserResponseDto {
     String userId;
     String username;
     String email;
